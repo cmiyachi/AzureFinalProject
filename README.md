@@ -87,7 +87,7 @@ The AutoML took much longer to execute. Voting Ensemble is an ensemble algorithm
 
 ## Future work
 
-As we did in class, the hyperdrive hyperparameter search algorithms could be varied to see if the performance improves.
+As we did in class, the hyperdrive hyperparameter search algorithms(GridParameterSampling or BayesianParameterSampling) could be varied to see if the performance improves. I also think working iwth Deep Neural Networks (DNNs), and Deep Learning could improve performance. It would also be interested to try 
 
 
 ## Cluster clean up
