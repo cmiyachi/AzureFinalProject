@@ -38,6 +38,8 @@ Because we have to predict yes or no (0 or 1), a binary classification model is 
 
 ## Scikit-learn Pipeline
 
+![Cluster Image](images/Flow.jpg)
+
 ### Logistic Regression + Hyperdrive Setup
 
 1. A skeleton of the python `train.py` script which creates the Tabular dataset. This also contains data cleansing and the model setup for Scikit.
@@ -72,7 +74,7 @@ Random Parameter Sampling was chosen as the Hyperparameter tuning algorithm. The
 
 **What are the benefits of the early stopping policy?**
 
-If a run is performing badly it stops and no compute time is wasted
+If a run is performing badly it stops and no compute time is wasted. This flow use the Bandit policy which stops a run if it underperforms the best run by a defined value called "Slack". The "Bandit policy" was chosen because top performance runs are kept until the end.
 
 ## AutoML
 
@@ -81,7 +83,7 @@ AutoML generates different models and hyperparameters automatically for all the 
 ## Pipeline Differences
 
 The best model  was `VotingEnsemble` using AutoML (accuracy .9166). It was slightly better than `Logistic Regression + Hyperdrive` model (accuracy .9144).  
-The AutoML took much longer to execute. 
+The AutoML took much longer to execute. Voting Ensemble is an ensemble algorithm which combines multiple models to achieve higher performance than the single models individually and uses the weighted average of predicted class probabilities. 
 
 ## Future work
 
