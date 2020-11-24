@@ -40,6 +40,18 @@ Because we have to predict yes or no (0 or 1), a binary classification model is 
 
 ![Cluster Image](images/Flow.jpg)
 
+When we ran the experiment we gave the following parameters:
+ps = RandomParameterSampling({
+    '--C': uniform(0.001, 1.0),
+    '--max_iter': choice(0, 10, 50, 100, 150, 200)
+})
+
+When the model is run and the most accurate run is selected, here is the output:
+
+['--C', '0.4725712603502653', '--max_iter', '200']
+
+Thus the Regularization strength was 0.47 and the Number of iterations was 200 for the best run. 
+
 ### Logistic Regression + Hyperdrive Setup
 
 1. A skeleton of the python `train.py` script which creates the Tabular dataset. This also contains data cleansing and the model setup for Scikit.
@@ -74,11 +86,12 @@ Random Parameter Sampling was chosen as the Hyperparameter tuning algorithm. The
 
 **What are the benefits of the early stopping policy?**
 
-If a run is performing badly it stops and no compute time is wasted. This flow use the Bandit policy which stops a run if it underperforms the best run by a defined value called "Slack". The "Bandit policy" was chosen because top performance runs are kept until the end.
+If a run is performing badly it stops and no compute time is wasted. This flow use the Bandit policy which stops a run if it underperforms the best run by a defined value called "Slack". The "Bandit policy" was chosen because top performance runs are kept until the end. This run used the following arguments evaluation_interval=3, slack_factor=0.1, delay_evaluation=3 - if the best AUC reported for a run is Y, then the value (Y + Y * 0.1) to 0.9, and if smaller, cancels the run. If delay_evaluation = 3, then the first time the policy will be applied is at interval 3, so it gets aplied early on. 
 
 ## AutoML
 
-AutoML generates different models and hyperparameters automatically for all the different algorithms.
+AutoML generates different models and hyperparameters automatically for all the different algorithms.  AutoML tries 17 different algorithms combined with scaling and normalization and ensemble methods.  The run defines how long to try for and then the best model is chosen. Note that this run is set to timeout after 30 minutes. 
+
 
 ## Pipeline Differences
 
@@ -87,7 +100,7 @@ The AutoML took much longer to execute. Voting Ensemble is an ensemble algorithm
 
 ## Future work
 
-As we did in class, the hyperdrive hyperparameter search algorithms(GridParameterSampling or BayesianParameterSampling) could be varied to see if the performance improves. I also think working iwth Deep Neural Networks (DNNs), and Deep Learning could improve performance. It would also be interested to try 
+As we did in class, the hyperdrive hyperparameter search algorithms(GridParameterSampling or BayesianParameterSampling) could be varied to see if the performance improves. I also think working iwth Deep Neural Networks (DNNs), and Deep Learning could improve performance. 
 
 
 ## Cluster clean up
