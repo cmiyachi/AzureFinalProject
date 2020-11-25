@@ -264,6 +264,7 @@ prefittedsoftvotingclassifier
  'warm_start': False}
  </code>
 
+The VotingEnsemble is tree based so notice that some of the paramters are with regards to "min_sample_leaf" and "min_samples_split" would indicate how many samples to make a split. 
 
 ## Pipeline Differences
 
