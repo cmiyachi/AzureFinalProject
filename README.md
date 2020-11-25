@@ -92,6 +92,178 @@ If a run is performing badly it stops and no compute time is wasted. This flow u
 
 AutoML generates different models and hyperparameters automatically for all the different algorithms.  AutoML tries 17 different algorithms combined with scaling and normalization and ensemble methods.  The run defines how long to try for and then the best model is chosen. Note that this run is set to timeout after 30 minutes. 
 
+When the print_model is run on the best model found, we see the following parameters:
+ <code>
+    
+datatransformer
+{'enable_dnn': None,
+ 'enable_feature_sweeping': None,
+ 'feature_sweeping_config': None,
+ 'feature_sweeping_timeout': None,
+ 'featurization_config': None,
+ 'force_text_dnn': None,
+ 'is_cross_validation': None,
+ 'is_onnx_compatible': None,
+ 'logger': None,
+ 'observer': None,
+ 'task': None,
+ 'working_dir': None}
+
+prefittedsoftvotingclassifier
+{'estimators': ['0', '1', '13', '9', '3', '12'],
+ 'weights': [0.5333333333333333,
+             0.2,
+             0.06666666666666667,
+             0.06666666666666667,
+             0.06666666666666667,
+             0.06666666666666667]}
+
+0 - maxabsscaler
+{'copy': True}
+
+0 - lightgbmclassifier
+{'boosting_type': 'gbdt',
+ 'class_weight': None,
+ 'colsample_bytree': 1.0,
+ 'importance_type': 'split',
+ 'learning_rate': 0.1,
+ 'max_depth': -1,
+ 'min_child_samples': 20,
+ 'min_child_weight': 0.001,
+ 'min_split_gain': 0.0,
+ 'n_estimators': 100,
+ 'n_jobs': 1,
+ 'num_leaves': 31,
+ 'objective': None,
+ 'random_state': None,
+ 'reg_alpha': 0.0,
+ 'reg_lambda': 0.0,
+ 'silent': True,
+ 'subsample': 1.0,
+ 'subsample_for_bin': 200000,
+ 'subsample_freq': 0,
+ 'verbose': -10}
+
+1 - maxabsscaler
+{'copy': True}
+
+1 - xgboostclassifier
+{'base_score': 0.5,
+ 'booster': 'gbtree',
+ 'colsample_bylevel': 1,
+ 'colsample_bynode': 1,
+ 'colsample_bytree': 1,
+ 'gamma': 0,
+ 'learning_rate': 0.1,
+ 'max_delta_step': 0,
+ 'max_depth': 3,
+ 'min_child_weight': 1,
+ 'missing': nan,
+ 'n_estimators': 100,
+ 'n_jobs': 1,
+ 'nthread': None,
+ 'objective': 'binary:logistic',
+ 'random_state': 0,
+ 'reg_alpha': 0,
+ 'reg_lambda': 1,
+ 'scale_pos_weight': 1,
+ 'seed': None,
+ 'silent': None,
+ 'subsample': 1,
+ 'tree_method': 'auto',
+ 'verbose': -10,
+ 'verbosity': 0}
+
+13 - minmaxscaler
+{'copy': True, 'feature_range': (0, 1)}
+
+13 - sgdclassifierwrapper
+{'alpha': 4.693930612244897,
+ 'class_weight': 'balanced',
+ 'eta0': 0.001,
+ 'fit_intercept': False,
+ 'l1_ratio': 0.3877551020408163,
+ 'learning_rate': 'constant',
+ 'loss': 'squared_hinge',
+ 'max_iter': 1000,
+ 'n_jobs': 1,
+ 'penalty': 'none',
+ 'power_t': 0.3333333333333333,
+ 'random_state': None,
+ 'tol': 0.001}
+
+9 - standardscalerwrapper
+{'class_name': 'StandardScaler',
+ 'copy': True,
+ 'module_name': 'sklearn.preprocessing._data',
+ 'with_mean': True,
+ 'with_std': True}
+
+9 - sgdclassifierwrapper
+{'alpha': 7.346965306122448,
+ 'class_weight': None,
+ 'eta0': 0.001,
+ 'fit_intercept': True,
+ 'l1_ratio': 0.8979591836734693,
+ 'learning_rate': 'constant',
+ 'loss': 'modified_huber',
+ 'max_iter': 1000,
+ 'n_jobs': 1,
+ 'penalty': 'none',
+ 'power_t': 0.6666666666666666,
+ 'random_state': None,
+ 'tol': 0.01}
+
+3 - standardscalerwrapper
+{'class_name': 'StandardScaler',
+ 'copy': True,
+ 'module_name': 'sklearn.preprocessing._data',
+ 'with_mean': True,
+ 'with_std': True}
+
+3 - sgdclassifierwrapper
+{'alpha': 1.4286571428571428,
+ 'class_weight': None,
+ 'eta0': 0.01,
+ 'fit_intercept': True,
+ 'l1_ratio': 0.7551020408163265,
+ 'learning_rate': 'constant',
+ 'loss': 'log',
+ 'max_iter': 1000,
+ 'n_jobs': 1,
+ 'penalty': 'none',
+ 'power_t': 0.4444444444444444,
+ 'random_state': None,
+ 'tol': 0.001}
+
+12 - robustscaler
+{'copy': True,
+ 'quantile_range': [10, 90],
+ 'with_centering': False,
+ 'with_scaling': False}
+
+12 - extratreesclassifier
+{'bootstrap': False,
+ 'ccp_alpha': 0.0,
+ 'class_weight': 'balanced',
+ 'criterion': 'gini',
+ 'max_depth': None,
+ 'max_features': 'sqrt',
+ 'max_leaf_nodes': None,
+ 'max_samples': None,
+ 'min_impurity_decrease': 0.0,
+ 'min_impurity_split': None,
+ 'min_samples_leaf': 0.06157894736842105,
+ 'min_samples_split': 0.10368421052631578,
+ 'min_weight_fraction_leaf': 0.0,
+ 'n_estimators': 50,
+ 'n_jobs': 1,
+ 'oob_score': False,
+ 'random_state': None,
+ 'verbose': 0,
+ 'warm_start': False}
+ </code>
+
 
 ## Pipeline Differences
 
@@ -100,7 +272,8 @@ The AutoML took much longer to execute. Voting Ensemble is an ensemble algorithm
 
 ## Future work
 
-As we did in class, the hyperdrive hyperparameter search algorithms(GridParameterSampling or BayesianParameterSampling) could be varied to see if the performance improves. I also think working iwth Deep Neural Networks (DNNs), and Deep Learning could improve performance. 
+As we did in class, the hyperdrive hyperparameter search algorithms(GridParameterSampling or BayesianParameterSampling) could be varied to see if the performance improves. I also think working iwth Deep Neural Networks (DNNs), and Deep Learning could improve performance. Note that on this run, there was a message that the data set was imbalanced.
+We could consider other metrics such as AUC, Precision, or Recall instead of Accuracy. 
 
 
 ## Cluster clean up
